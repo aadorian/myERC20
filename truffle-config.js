@@ -17,7 +17,13 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
+require('dotenv').config();
+const fs = require('fs');
+const mnemonic = fs.readFileSync("secret").toString().trim();
 
+const PrivateKeyProvider = require ('./private-provider')
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+var privateKey = "6f0159230ce940a654b76d0a72186c4ffedcfff0f3713d983357c301ac7bc286";
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
 // const infuraKey = "fj4jll3k.....";
 //
@@ -42,12 +48,27 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
+    moonbean: {
+
+      provider: () => new PrivateKeyProvider(privateKey, "https://rpc.testnet.moonbeam.network",43),
+       network_id: 43    // 
+     //  gas: 5500000,        // Ropsten has a lower block limit than mainnet
+     // confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+     // timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+     // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+    },
     // development: {
     //  host: "127.0.0.1",     // Localhost (default: none)
     //  port: 8545,            // Standard Ethereum port (default: none)
     //  network_id: "*",       // Any network (default: none)
     // },
-
+    //ropsten: {
+      //provider: function () {
+       //  return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/aba38a42d29e42aea0f6380b2b141af5", 0);
+      //},
+     // network_id: '3',
+     // from: "0x8da93183Ae3B2c8806c4574e243C705a6C4a5325",
+    //}
     // Another network with more advanced options...
     // advanced: {
       // port: 8777,             // Custom port
